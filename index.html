@@ -37,7 +37,7 @@
             background-repeat: repeat;
             z-index: -1;
             pointer-events: none;
-            transition: background-color 0.5s ease;
+            transition: background-color 0.3s ease;
         }
 
         .container {
@@ -127,29 +127,29 @@
         let posX = 0, posY = 0, speedX = 0.25, speedY = 0.25;
 
         function getRandomDarkColor() {
-            const r = Math.floor(Math.random() * 145);
-            const g = Math.floor(Math.random() * 145);
-            const b = Math.floor(Math.random() * 145);
+            const r = Math.floor(Math.random() * 128);
+            const g = Math.floor(Math.random() * 128);
+            const b = Math.floor(Math.random() * 128);
             return `rgb(${r}, ${g}, ${b})`;
         }
 
         const background = document.querySelector('.background');
         background.style.backgroundColor = getRandomDarkColor();
 
+        function animateBackground() {
+            posX += speedX;
+            posY += speedY;
+            background.style.backgroundPosition = `${posX}px ${posY}px`;
+            requestAnimationFrame(animateBackground);
+        }
+
         document.addEventListener('mousemove', function (e) {
             const centerX = window.innerWidth / 2;
             const centerY = window.innerHeight / 2;
-
             const deltaX = e.clientX - centerX;
             const deltaY = e.clientY - centerY;
-
             speedX = deltaX * 0.005;
             speedY = deltaY * 0.005;
-
-            posX += speedX;
-            posY += speedY;
-
-            background.style.backgroundPosition = `${posX}px ${posY}px`;
         });
 
         document.addEventListener('keydown', function(event) {
@@ -157,6 +157,8 @@
                 background.style.backgroundColor = '#1e1e1e';
             }
         });
+
+        animateBackground();
     </script>
 
 </body>
