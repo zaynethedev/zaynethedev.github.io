@@ -37,6 +37,7 @@
             background-repeat: repeat;
             z-index: -1;
             pointer-events: none;
+            transition: background-color 0.5s ease;
         }
 
         .container {
@@ -68,7 +69,7 @@
         }
 
         .projects li {
-            background-color: #3d7e9a;
+            background-color: #626262;
             color: white;
             padding: 15px;
             margin: 10px 0;
@@ -79,7 +80,7 @@
         }
 
         .projects li:hover {
-            background-color: #61a6d1;
+            background-color: #7f7f7f;
             transform: translateY(-3px);
         }
 
@@ -96,7 +97,7 @@
         }
 
         a {
-            color: #61a6d1;
+            color: #868686;
             text-decoration: none;
         }
 
@@ -115,6 +116,7 @@
         <ul class="projects">
             <li><a href="https://github.com/zaynethedev/CustomPlatformManager" target="_blank">CustomPlatformManager</a></li>
             <li><a href="https://github.com/zaynethedev/GorillaMirror" target="_blank">GorillaMirror</a></li>
+            <li><a href="https://github.com/zaynethedev/GorillaPets" target="_blank">GorillaPets</a></li>
         </ul>
         <footer>
             <p>Check out more on <a href="https://github.com/zaynethedev" target="_blank">GitHub</a></p>
@@ -123,7 +125,17 @@
 
     <script>
         let posX = 0, posY = 0, speedX = 0.25, speedY = 0.25;
-        
+
+        function getRandomDarkColor() {
+            const r = Math.floor(Math.random() * 145);
+            const g = Math.floor(Math.random() * 145);
+            const b = Math.floor(Math.random() * 145);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        const background = document.querySelector('.background');
+        background.style.backgroundColor = getRandomDarkColor();
+
         document.addEventListener('mousemove', function (e) {
             const centerX = window.innerWidth / 2;
             const centerY = window.innerHeight / 2;
@@ -133,19 +145,18 @@
 
             speedX = deltaX * 0.005;
             speedY = deltaY * 0.005;
-        });
 
-        function animateBackground() {
             posX += speedX;
             posY += speedY;
 
-            const background = document.querySelector('.background');
             background.style.backgroundPosition = `${posX}px ${posY}px`;
+        });
 
-            requestAnimationFrame(animateBackground);
-        }
-
-        animateBackground();
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'q' || event.key === 'Q') {
+                background.style.backgroundColor = '#1e1e1e';
+            }
+        });
     </script>
 
 </body>
